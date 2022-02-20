@@ -14,6 +14,10 @@ router.get('/users' , (req ,res) =>{
      {id : 8 , name : 'user8'}
 
     ]
+
+    const users = JSON.stringify(all_users)
+
+    res.render('users' , {users})
 })
 
 
