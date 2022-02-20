@@ -41,22 +41,11 @@ app.post('/todo' , async(req , res) =>{
               })
 })
 
+app.use('/' , (require('./routes/router')))
+
 
 app.listen(port , (err)=>{
     if(!err){
-       3
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
        console.log(`Server listening on port ${port}`)
     }else{
         console,log('Error ' + err)
