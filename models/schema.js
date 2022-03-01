@@ -3,10 +3,10 @@
 const mongoose = require('mongoose')
 const dataSchema = new mongoose.Schema({
 
-    todo :{
+    name :{
         type: String,
     }
 })
 
 
-module.exports = mongoose.model('mytodo' , dataSchema)
+module.exports = mongoose.model('random' , dataSchema)
