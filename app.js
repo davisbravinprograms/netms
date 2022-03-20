@@ -1,34 +1,38 @@
-const express = require(express)
-const port = process.env.PORT || 5000
+const express = require('express')
 const mongoose = require('mongoose')
 require('dotenv').config()
+
+const port = process.env.port || 3000
 const app = express()
 
 
-// database 
 
-const db_uri = process.env.DB_URI;
-
-mongoose.connect(db_uri , {useNewUrlParser : true}, (err)=>{
-    if(!err)
-        console.log('Database running')
-
-        else{
-            console.log('Error ' + err)
-        }
-})
+const db = process.env.DB_URI
+mongoose.connect(db, 
+    {useNewUrlParser : true},
+    ).then(()=>{
+        console.log('db connected')
+    }).catch((err)=>{
+         throw err
+    })
 
 
-app.set('views' , __dirname + '/views')
+
+
 app.set('view engine' , 'ejs')
 
 
 
-app.use('/' , require('./routes/router'))
+
+
+app.use(express.urlencoded({extended : false}))
+app.use(express.static('public'))
+app.use('/', require('./routes/router'))
+
 app.listen(port , (err)=>{
     if(!err){
-        console.log(`Server listening on port ${port}`)
+        console.log('Server connected successful')
     }else{
-        console.log(err)
+        throw err
     }
 })
