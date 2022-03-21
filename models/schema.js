@@ -9,4 +9,4 @@ const dataSchema = new mongoose.Schema({
 })
 
 
-module.exports = mongoose.model('random' , dataSchema)
+module.exports = mongoose.model('some' , dataSchema)

@@ -5,6 +5,29 @@ exports.text =  (req , res)=>{
 }
 
 
+exports.login = (req , res) =>{
+   res.render('login')
+}
+
+exports.register = (req , res) =>{
+  res.render('register')
+}
+
+exports.admin = (req , res) =>{
+  res.render('admin')
+}
+
+exports.form = (req , res) =>{
+  res.render('form')
+}
+
+exports.home = (req , res) =>{
+  res.render('landing_page')
+}
+
+
+
+
 exports.landingpage = (req, res) =>{
 res.render('landing_page')
 }
