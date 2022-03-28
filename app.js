@@ -6,7 +6,7 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
 const Mongostore = require('connect-mongodb-session')(session)
-
+require('dotenv').config()
 
 const app = express();
 
@@ -16,7 +16,8 @@ app.set('x-powered-by' , false)
 require('./config/passport')(passport);
 
 // DB Config
-const db = 'mongodb://localhost:27017/NETDATA';
+// const db = 'mongodb://localhost:27017/NETDATA';
+const db = process.env.DB_URI
 
 
 const store = new Mongostore({
