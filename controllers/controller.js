@@ -21,6 +21,7 @@ exports.form = (req , res) =>{
   res.render('form')
 }
 
+
 exports.home = (req , res) =>{
   res.render('landing_page')
 }
@@ -36,6 +37,13 @@ res.render('landing_page')
 exports.message = (req , res)=>{
   res.send ('<h1>Hello Express</h1>')
 }
+
+exports.welcome = (req , res)=>{
+  res.render ('welcome')
+}
+
+
+
 
 exports.posts =async (req , res)=>{
   const data = await new Schema()

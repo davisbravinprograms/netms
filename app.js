@@ -1,43 +1,3 @@
-// const express = require('express')
-// const mongoose = require('mongoose')
-// require('dotenv').config()
-
-// const port = process.env.port || 3000
-// const app = express()
-
-
-
-// const db = process.env.DB_URI
-// mongoose.connect(db, 
-//     {useNewUrlParser : true},
-//     ).then(()=>{
-//         console.log('db connected')
-//     }).catch((err)=>{
-//          throw err
-//     })
-
-
-
-
-// app.set('view engine' , 'ejs')
-
-
-
-
-
-// app.use(express.urlencoded({extended : false}))
-// app.use(express.static('public'))
-// app.use('/', require('./routes/router'))
-
-// app.listen(port , (err)=>{
-//     if(!err){
-//         console.log('Server connected successful')
-//     }else{
-//         throw err
-//     }
-// })
-
-
 
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
@@ -45,6 +5,8 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
+const Mongostore = require('connect-mongodb-session')(session)
+
 
 const app = express();
 
@@ -56,11 +18,19 @@ require('./config/passport')(passport);
 // DB Config
 const db = 'mongodb://localhost:27017/NETDATA';
 
+
+const store = new Mongostore({
+  uri : db,
+  collection : 'mySession'
+})
+
+
 // Connect to MongoDB
 mongoose
   .connect(
     db,
-    { useNewUrlParser: true ,useUnifiedTopology: true}
+    { useNewUrlParser: true },
+    { useUnifiedTopoly: true }
   )
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
@@ -71,6 +41,7 @@ app.set('view engine', 'ejs');
 
 // Express body parser
 app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
 // Express session
@@ -78,7 +49,8 @@ app.use(
   session({
     secret: 'secret',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store : store
   })
 );
 
@@ -88,6 +60,7 @@ app.use(passport.session());
 
 // Connect flash
 app.use(flash());
+
 
 // Global variables
 app.use(function(req, res, next) {
